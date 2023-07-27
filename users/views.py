@@ -1,6 +1,7 @@
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import RegisterForm
@@ -43,13 +44,29 @@ class LoginView(View):
             user = form_name.get_user()
             login(request, user)
 
-            messages.success(request, 'You have succesfully logged in')
+            messages.success(request, 'You have successfully logged in')
             return redirect('landing')
         else:
             context = {
                 'form_name': form_name
             }
             return render(request, 'login.html', context)
+
+
+class ProfileView(LoginRequiredMixin, View):
+    def get(self, request):
+        context = {
+            'user': request.user
+        }
+        return render(request, 'profile.html', context)
+
+class LogOutView(LoginRequiredMixin, View):
+    def get(self, response):
+        logout(response)
+
+        messages.success(response, 'You have successfully logged out')
+        return redirect('landing')
+
 
 
 

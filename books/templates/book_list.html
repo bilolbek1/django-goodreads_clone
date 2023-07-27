@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1>All Books</h1>
+{% if books %}
+{% for i in books %}
+
+<a href="{% url 'detail' i.id  %}">{{ i.title.upper }}</a>
+
+{% endfor %}
+
+{% else %}
+
+    There is no books
+{% endif %}
+
+</body>
+</html>

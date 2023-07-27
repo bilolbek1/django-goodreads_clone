@@ -8,12 +8,18 @@ class Book(models.Model):
     description = models.TextField()
     isbn = models.CharField(max_length=17)
 
+    def __str__(self):
+        return self.title.upper()
+
 
 class Author(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     email = models.EmailField(max_length=128)
     bio = models.TextField()
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 class AuthorBook(models.Model):
@@ -27,6 +33,7 @@ class Review(models.Model):
     review_text = models.TextField()
     star_given = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
 
-
+    def __str__(self):
+        return self.review_text.capitalize()
 
 

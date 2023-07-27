@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingPageView, name='landing'),
     path('users/', include('users.urls')),
+    path('books/', include('books.urls')),
 ]
