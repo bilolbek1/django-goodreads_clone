@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
-from .forms import RegisterForm
+from .forms import RegisterForm, ProfilUpdateForm
 
 
 
@@ -68,8 +68,26 @@ class LogOutView(LoginRequiredMixin, View):
         return redirect('landing')
 
 
+class ProfilUpdateView(LoginRequiredMixin, View):
+    def get(self, request):
+        profile_update = ProfilUpdateForm(instance=request.user)
+        context = {
+            'profile_update': profile_update
+        }
+        return render(request, 'profile_update.html', context)
 
+    def post(self, request):
+        profile_update = ProfilUpdateForm(instance=request.user, data=request.POST)
 
+        if profile_update.is_valid():
+            profile_update.save()
+            messages.info(request, 'You updated your profile')
+            return redirect('profile')
+        else:
+            context = {
+                'profile_update': profile_update
+            }
+            return render(request, 'profile_update.html', context)
 
 
 

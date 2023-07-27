@@ -4,19 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-<body>
+<style>
+    .www{
+        color: #AA77FF !important;
+        text-shadow: 3px 3px 20px #AA77FF,
+    -2px 1px 30px #AA77FF;
+        font-size: 1.5vw;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 500;
+        position: relative;
+    }
+    .www::before{
+    content: '';
+    position: absolute;
+    right: 0px;
+    top: 40px;
+    width: 0;
+    background-color: #AA77FF;
+    height: 3px;
+    transition: 0.4s;
+    border-radius: 30px;
+}
+.www:hover::before{
+    width: 100%;
+}
+</style>
+<body class="container">
 
-<a href="{% url "register" %}">Register</a> / <a href="{% url 'login' %}">LogIn</a> /
-<a href="{% url 'list' %}">All books</a> / <a href="{% url 'profile' %}">Your profile</a> /
-<a href="{% url 'logout' %}">LogOut</a>
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark p-3 mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand text-success www" href="#">GOODREADS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active text-warning www" aria-current="page" href="{% url 'landing' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-info www" href="{% url 'list' %}" aria-disabled="true">All books</a>
+        </li>
+      </ul>
+        {% if request.user.is_authenticated %}
+        <form class="d-flex" style="margin-right: 2vw" role="search">
+        {% else %}
+        <form class="d-flex" style="margin-right: 4vw"; role="search">
+        {% endif %}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+
+        {% if request.user.is_authenticated %}
+        <ul class="mb-2 mb-lg-0">
+         <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle text-warning" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ request.user.username.upper }}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'profile' %}">Yor Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+              <a style="margin-right: 1vw" class="btn btn-success" href="{% url 'register' %}">SignUp</a>
+              <a class="btn btn-primary" href="{% url 'login' %}">LogIn</a>
+          {% endif %}
+          </ul>
+        </li>
+    </ul>
+    </div>
+  </div>
+</nav>
 
 
 {% if messages%}
 
     {% for i in messages %}
 
-        <h1 class="alert alert-{{ i.tags }}">{{ i }}</h1>
+        <p class="alert alert-{{ i.tags }}">{{ i }}</p>
 
     {% endfor %}
 
@@ -31,5 +97,9 @@
 
 
 
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
