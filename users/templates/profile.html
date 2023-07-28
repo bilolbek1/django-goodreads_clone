@@ -2,6 +2,7 @@
 
 {% block content %}
 
+    <img class="profile_image" src="{{ user.profile_picture.url }}">
 <h1>Username: {{ user.username }}</h1>
 <h2>Name: {{ user.first_name }}</h2>
 <h2>Surname: {{ user.last_name }}</h2>

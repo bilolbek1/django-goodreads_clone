@@ -1,0 +1,34 @@
+ body{
+        margin-right: 2vw;
+        margin-left: 2vw;
+    }
+    .www{
+        color: #AA77FF !important;
+        text-shadow: 3px 3px 20px #AA77FF,
+    -2px 1px 30px #AA77FF;
+        font-size: 1.5vw;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 500;
+        position: relative;
+    }
+    .www::before{
+    content: '';
+    position: absolute;
+    right: 0px;
+    top: 40px;
+    width: 0;
+    background-color: #AA77FF;
+    height: 3px;
+    transition: 0.4s;
+    border-radius: 30px;
+}
+.www:hover::before{
+    width: 100%;
+}
+.profile_image{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid red;
+}
