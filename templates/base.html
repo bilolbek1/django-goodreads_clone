@@ -11,17 +11,20 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark p-3 mb-3">
   <div class="container-fluid">
-    <a class="navbar-brand text-success www" href="#">GOODREADS</a>
+    <a class="navbar-brand www" href="#">GOODREADS</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active text-warning www" aria-current="page" href="{% url 'landing' %}">Home</a>
+          <a class="nav-link active www" aria-current="page" href="{% url 'landing' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active text-info www" href="{% url 'list' %}" aria-disabled="true">All books</a>
+          <a class="nav-link active www" href="{% url 'list' %}" aria-disabled="true">All books</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link active ww2" id="clock"></a>
         </li>
       </ul>
         {% if request.user.is_authenticated %}
@@ -73,7 +76,27 @@
 
 
 
+<script>
+  function updateClock() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
 
+    // Add leading zeros if needed
+    hours = (hours < 10 ? "0" : "") + hours;
+    minutes = (minutes < 10 ? "0" : "") + minutes;
+    seconds = (seconds < 10 ? "0" : "") + seconds;
+
+    var time = hours + ":" + minutes + ":" + seconds;
+
+    // Update the clock element
+    document.getElementById("clock").innerHTML = time;
+  }
+
+  // Call the updateClock function every second
+  setInterval(updateClock, 1000);
+</script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block content %}
     <h1>All Books</h1>
 {% if books %}
 {% for i in books %}
@@ -19,5 +14,4 @@
     There is no books
 {% endif %}
 
-</body>
-</html>
+{% endblock content %}

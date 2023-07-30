@@ -1,4 +1,6 @@
 from django.shortcuts import render
+import datetime
+from time import sleep
 
 def LandingPageView(request):
     return render(request, 'landing.html')

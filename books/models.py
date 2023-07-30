@@ -7,6 +7,7 @@ class Book(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
     isbn = models.CharField(max_length=17)
+    books_picture = models.ImageField(default='default_book.png')
 
     def __str__(self):
         return self.title.upper()
