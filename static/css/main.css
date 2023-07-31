@@ -30,7 +30,6 @@
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid rgba(104, 12, 164, 0.6);
 }
 .ww2{
     color: #ffffff ;
@@ -44,4 +43,12 @@
 .book_pic{
     width: 200px;
     height: 200px;
+}
+.gradient-custom {
+    background: #f6d365;
+    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+    background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}
+.shadow{
+    box-shadow: 15px 15px 15px 20px #AA77FF;
 }

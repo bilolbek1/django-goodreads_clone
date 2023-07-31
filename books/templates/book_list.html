@@ -1,17 +1,82 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="container">
+
     <h1>All Books</h1>
-{% if books %}
-{% for i in books %}
 
-<a href="{% url 'detail' i.id  %}">{{ i.title.upper }}</a>
 
+<div class="card mb-3 " style="max-width: 100vw; height: 20vw">
+  <div class="row no-gutters">
+
+      {% if page_obj %}
+{% for i in page_obj %}
+
+
+      <div class="col-5 ml-3 mb-3 border border-success" style="margin-left: 5vw">
+    <div class="row">
+          <div class="col-md-4 ">
+      <img src="{{ i.books_picture.url }}" class="card-img img-fluid" style="height: 20vw;
+         object-fit: cover; margin-left: -1vw" alt="...">
+    </div>
+    <div class="col-md-8 ">
+      <div class="card-body">
+        <h5 class="card-title mb-5"><a class="text-dark" style="text-decoration: none" href="{% url 'detail' i.id %}">{{ i.title.upper }}</a></h5>
+        <p class="card-text">{{ i.description|truncatewords:20 }}</p>
+      </div>
+    </div>
+
+      </div>
+    </div>
 {% endfor %}
+
+      <nav aria-label="..." style="margin-bottom: 5vw" class="m-5 container">
+          <ul class="pagination">
+      {% if page_obj.has_previous %}
+            <li class="page-item ">
+              <a class="page-link" href="{% url 'list' %}?page=1">first</a>
+            </li>
+            <li class="page-item ">
+              <a class="page-link" href="{% url 'list' %}?page={{ page_obj.previous_page_number }}">previous</a>
+            </li>
+             {% endif %}
+
+            <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+
+            {% if page_obj.has_next %}
+
+            <li class="page-item">
+                <a class="page-link" href="{% url 'list' %}?page={{ page_obj.next_page_number }}">next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'list' %}?page={{ page_obj.paginator.num_pages }}">last</a>
+            </li>
+       {% endif %}
+          </ul>
+
+        </nav>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
 
 {% else %}
 
     There is no books
 {% endif %}
 
+
+
+
+
+
+
+</div>
 {% endblock content %}

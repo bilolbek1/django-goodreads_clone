@@ -2,13 +2,59 @@
 
 {% block content %}
 
-    <img class="profile_image" src="{{ user.profile_picture.url }}">
-<h1>Username: {{ user.username }}</h1>
-<h2>Name: {{ user.first_name }}</h2>
-<h2>Surname: {{ user.last_name }}</h2>
-<h3>Email: {{ user.email }}</h3>
 
-    <a href="{% url 'profile_update' %}">Eit Profile</a>
+<section class="vh-100" style="background-color: #61677A;">
+  <div class="container py-50 h-100 ">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-12 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div class="col-md-4 gradient-custom bg-success text-center text-light"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+              <img src="{{ user.profile_picture.url }}"
+                alt="Avatar" class="img-fluid my-5 profile_image"/>
+              <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+              <p>@{{ user.username }}</p>
+              <a href="{% url 'profile_update' %}" class="far fa-edit mb-5" style="color: white;"></a>
+            </div>
+            <div class="col-md-8 bg-info text-dark">
+              <div class="card-body p-4">
+                <h6>Information</h6>
+                <hr class="mt-0 mb-4 bg-dark">
+                <div class="row pt-1">
+                    <div class="col-4 mb-3">
+                    <h6>Username</h6>
+                    <p class="text-light">{{ user.username}}</p>
+                  </div>
+                    <div class="col-4 mb-3">
+                    <h6>Email</h6>
+                    <p class="text-light">{{ user.email }}</p>
+                  </div>
+                  <div class="col-4 mb-3">
+                    <h6>Joined time</h6>
+                    <p class="text-light">{{ user.date_joined |date:"M d, Y" }}</p>
+                  </div>
+                </div>
+                <h6>Projects</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Recent</h6>
+                    <p class="text-light">Lorem ipsum</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Most Viewed</h6>
+                    <p class="text-light">Dolor sit amet</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 {% endblock content %}
