@@ -1,15 +1,11 @@
- body{
-        margin-right: 2vw;
-        margin-left: 2vw;
-    }
+
     .www{
-        color: #AA77FF !important;
-        text-shadow: 3px 3px 20px #AA77FF,
-    -2px 1px 30px #AA77FF !important;
+        color: #b29715 !important;
         font-size: 1.5vw;
         font-family: 'Ubuntu', sans-serif;
         font-weight: 500;
         position: relative;
+        margin-right: 2vw;
     }
     .www::before{
     content: '';
@@ -17,7 +13,7 @@
     right: 0px;
     top: 40px;
     width: 0;
-    background-color: #AA77FF;
+    background-color: #b29715;
     height: 3px;
     transition: 0.4s;
     border-radius: 30px;

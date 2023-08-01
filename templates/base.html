@@ -13,16 +13,16 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark p-3 mb-3">
   <div class="container-fluid">
     <a class="navbar-brand www" href="#">GOODREADS</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon "></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse  " id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active www" aria-current="page" href="{% url 'landing' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active www" href="{% url 'list' %}" aria-disabled="true">All books</a>
+          <a class="nav-link active www" href="{% url 'list' %}" aria-disabled="true">Books</a>
         </li>
           <li class="nav-item">
           <a class="nav-link active ww2" id="clock"></a>
@@ -33,8 +33,8 @@
         {% else %}
         <form class="d-flex" style="margin-right: 4vw"; role="search">
         {% endif %}
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input style="border-radius: 0" class="form-control me-2" type="search" value="{{ search }}" name="q" placeholder="Search" aria-label="Search">
+        <button style="border-radius: 0" class="btn btn-outline-warning" type="submit">Search</button>
       </form>
 
         {% if request.user.is_authenticated %}
@@ -56,6 +56,7 @@
     </div>
   </div>
 </nav>
+<div class="container">
 
 
 {% if messages%}
@@ -77,6 +78,8 @@
 
 
 
+
+</end>
 <script>
   function updateClock() {
     var now = new Date();

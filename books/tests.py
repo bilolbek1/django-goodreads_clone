@@ -32,6 +32,28 @@ class BookTestCase(TestCase):
         self.assertContains(response, book.description)
         self.assertContains(response, book.isbn)
 
+    def test_book_search(self):
+        book1 = Book.objects.create(title='Gerakl and', description='hello world')
+        book2 = Book.objects.create(title='Bruce Lee', description='hello lee')
+        book3 = Book.objects.create(title='Fly gerakl', description='hello fly')
+
+        response = self.client.get(reverse('list')+'?q=gerakl')
+
+        self.assertContains(response, book1.title.upper())
+        self.assertNotContains(response, book2.title.upper())
+        self.assertContains(response, book3.title.upper())
+
+        response = self.client.get(reverse('list') + '?q=bruce')
+
+        self.assertContains(response, book2.title.upper())
+        self.assertNotContains(response, book1.title.upper())
+        self.assertNotContains(response, book3.title.upper())
+
+        response = self.client.get(reverse('list') + '?q=fly')
+
+        self.assertContains(response, book3.title.upper())
+        self.assertNotContains(response, book2.title.upper())
+        self.assertNotContains(response, book1.title.upper())
 
 
 

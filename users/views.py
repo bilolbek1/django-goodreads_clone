@@ -83,7 +83,7 @@ class ProfilUpdateView(LoginRequiredMixin, View):
 
         if profile_update.is_valid():
             profile_update.save()
-            messages.info(request, 'You updated your profile')
+            messages.warning(request, 'You updated your profile')
             return redirect('profile')
         else:
             context = {
