@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 from users.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -8,7 +10,8 @@ class Book(models.Model):
     description = models.TextField()
     isbn = models.CharField(max_length=17)
     books_picture = models.ImageField(default='default_book.png')
-
+    pages = models.IntegerField(null=True)
+    craeted_time = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.title.upper()
@@ -34,6 +37,7 @@ class Review(models.Model):
     book_id = models.ForeignKey(Book, on_delete=models.CASCADE)
     review_text = models.TextField()
     star_given = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    created_time = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.review_text.capitalize()

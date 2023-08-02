@@ -5,14 +5,16 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView
 
-from .models import Book
+from .models import Book, AuthorBook
 
 
 class BookDetailView(View):
     def get(self, request, id):
         book = Book.objects.get(id=id)
+        author_books = AuthorBook.objects.filter(book=book)
         context = {
-            'book': book
+            'book': book,
+            'author_books': author_books,
         }
         return render(request, 'book_detail.html', context)
 

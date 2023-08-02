@@ -1,10 +1,111 @@
 {% extends 'base.html' %}
 {% load static %}
+
+<style>
+#img-fluid{
+    width: 15vw;
+    height: 30vw;
+    border-radius: 0 20px 20px 0px;
+    object-fit: cover;
+}
+#img-con{
+    height: 100vh;
+}
+#detail_con{
+    margin-left: 25vw;
+}
+</style>
 {% block content %}
 
-<img class="book_pic" src="{{ book.books_picture.url }}" alt="book_picture">
-<h1>{{ book.title.upper }}</h1>
-<h2>{{ book.description }}</h2>
-<h3>{{ book.isbn }}</h3>
+<div class="container">
+        <div class="row">
+            <div id="img-con" class="col-3 position-fixed p-3 d-flex flex-column ">
+                <img id="img-fluid" class="img-fluid ms-5 mb-4 " src="{{ book.books_picture.url }}" alt="">
+
+                <button style="border-radius: 0" class="btn btn-outline-success ">Read</button>
+            </div>
+
+            <div id="detail_con" class="col-9 p-3">
+                <h2 class="mb-4">{{ book.title.upper }}</h2>
+                {% for i in author_books  %}
+                <h4 class="mb-5 text-success">{{ i.author.first_name }} {{ i.author.last_name }}</h4>
+                {% endfor %}
+
+                <h2>Description</h2>
+                <hr>
+                <p>{{ book.description }}</p>
+
+                <h5 class="mb-4">Pages: {{ book.pages }}</h5>
+                <h6 class="mb-5">Created time: {{ book.craeted_time| date:'M d , Y' }}</h6>
+
+                <h1>Reviews</h1>
+                <hr class="mb-5">
+
+            {% for i in book.review_set.all %}
+
+                <div class="row border border-success p-3 mb-4 ">
+                    <div class="col-2 d-flex ">
+                        <img style="width: 80px; height: 80px; object-fit: cover;
+                            border-radius: 50%" class="ms-5 comment_pic" src="{{ i.user_id.profile_picture.url }}">
+                            </div>
+                    <div class="col-6">
+                        <p><b>{{ i.user_id.username }} </b>by
+                         {% if i.star_given == 5 %}
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                {% endif %}
+                {% if i.star_given == 4 %}
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                {% endif %}
+                {% if i.star_given == 3 %}
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                {% endif %}
+                {% if i.star_given == 2 %}
+                    <i class="fa-solid text-warning fa-star"></i>
+                    <i class="fa-solid text-warning fa-star"></i>
+                {% endif %}
+                {% if i.star_given == 1 %}
+                    <i class="fa-solid text-warning fa-star"></i>
+                {% endif %}</p>
+
+                <h6 class="text-secondary">{{ i.review_text }}</h6>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+
+
+
+            {% endfor %}
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
 
 {% endblock content %}

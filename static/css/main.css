@@ -48,3 +48,22 @@
 .shadow{
     box-shadow: 15px 15px 15px 20px #AA77FF;
 }
+#img-fluid{
+    width: 15vw;
+    height: 30vw;
+    border-radius: 0 20px 20px 0px;
+    object-fit: cover;
+}
+#img-con{
+    height: 100vh;
+}
+#detail_con{
+    margin-left: 25vw;
+}
+
+
+
+
+
+
+
