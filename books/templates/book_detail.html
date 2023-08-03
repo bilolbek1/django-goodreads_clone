@@ -35,22 +35,60 @@
                 <hr>
                 <p>{{ book.description }}</p>
 
+                <h5 class="mb-4">Isbn: {{ book.isbn }}</h5>
                 <h5 class="mb-4">Pages: {{ book.pages }}</h5>
                 <h6 class="mb-5">Created time: {{ book.craeted_time| date:'M d , Y' }}</h6>
 
-                <h1>Reviews</h1>
-                <hr class="mb-5">
+
+
+
+<section style="background-color: #444646;">
+  <div class="container my-5 py-5 text-dark">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-6">
+        <div class="card">
+          <div class="card-body p-4">
+            <div class="d-flex flex-start w-100 ps-5">
+
+              <form method="post" action="{% url 'review' book.id %}">
+                    {% csrf_token %}
+                    {{ review.as_p }}
+
+                    <button style="border-radius: 0;" class="btn btn-warning ms-5" type="submit">Add Review</button>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+                <h1 style="text-align: center">Reviews</h1>
+                <hr class="mb-5 col-8" style="margin-left: 25vw">
 
             {% for i in book.review_set.all %}
 
-                <div class="row border border-success p-3 mb-4 ">
+                <div class="row border border-success p-3 mb-4 col-8 " style="margin-left: 27vw">
                     <div class="col-2 d-flex ">
                         <img style="width: 80px; height: 80px; object-fit: cover;
                             border-radius: 50%" class="ms-5 comment_pic" src="{{ i.user_id.profile_picture.url }}">
                             </div>
                     <div class="col-6">
-                        <p><b>{{ i.user_id.username }} </b>by
-                         {% if i.star_given == 5 %}
+                    <div class="d-flex flex-row " style="width: 40vw;">
+                        <b class="me-2">{{ i.user_id.username }} </b> <p class="me-2">by</p>
+                        <p> {% if i.star_given == 5 %}
                     <i class="fa-solid text-warning fa-star"></i>
                     <i class="fa-solid text-warning fa-star"></i>
                     <i class="fa-solid text-warning fa-star"></i>
@@ -74,9 +112,13 @@
                 {% endif %}
                 {% if i.star_given == 1 %}
                     <i class="fa-solid text-warning fa-star"></i>
-                {% endif %}</p>
+                {% endif %} <p class="ms-4">{{ i.created_time|date:"F j, Y" }} at {{ i.created_time|date:"H:i" }}</p>
+                        </p>
+                </div>
 
                 <h6 class="text-secondary">{{ i.review_text }}</h6>
+
+
                     </div>
 
 

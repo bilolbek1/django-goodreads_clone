@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from books.models import Book
+from users.models import CustomUser
 
 
 class BookTestCase(TestCase):
@@ -56,6 +57,31 @@ class BookTestCase(TestCase):
         self.assertNotContains(response, book1.title.upper())
 
 
+
+class BookReviewTestCase(TestCase):
+    def test_review(self):
+        book = Book.objects.create(title='You and Me', description='Good book')
+
+        user = CustomUser.objects.create(username='hunter005', first_name='Erik',
+                                         last_name='christ', email='christ@gmail.com',)
+        user.set_password('11223344')
+        user.save()
+
+        self.client.login(username='hunter005', password='11223344')
+
+        self.client.post(reverse('review', kwargs={'id': book.id}),
+                         data={
+                             'star_given': '4',
+                             'review_text': 'Good book'
+                         })
+        review_new = book.review_set.all()
+
+
+        self.assertEqual(review_new.count(), 1)
+        self.assertEqual(review_new[0].star_given, 4)
+        self.assertEqual(review_new[0].review_text, 'Good book')
+        self.assertEqual(review_new[0].book_id, book)
+        self.assertEqual(review_new[0].user_id, user)
 
 
 
