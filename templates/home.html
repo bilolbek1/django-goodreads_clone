@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section style="background-color: #e7effd;">
+  <div class="container my-5 py-5 text-dark">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-11 col-lg-9 col-xl-7">
+          {% if page_obj %}
+
+          {% for i in page_obj %}
+        <div class="d-flex flex-start mb-4">
+          <img class="rounded-circle shadow-1-strong me-3"
+            src="{{ i.user_id.profile_picture.url }}" alt="avatar" width="65"
+            height="65" style="object-fit: cover" />
+          <div class="card w-100">
+            <div class="card-body p-4">
+              <div class="">
+                <h5>{{ i.user_id.username }}</h5>
+                <p class="small">{{ i.created_time|date:"F j, Y" }} at {{ i.created_time|date:"H:i" }}</p>
+                <p>
+                  {{ i.review_text }}
+                </p>
+                  <div>
+                        <img style="width: 150px; height: 250px; object-fit: cover;" class="mt-3 mb-4 ms-5 img-thumbnail" src="{{ i.book_id.books_picture.url }}">
+
+                  </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="d-flex align-items-center">
+                    <a href="#!" class="link-muted me-2"><i class="fas fa-thumbs-up me-1"></i>132</a>
+                    <a href="#!" class="link-muted"><i class="fas fa-thumbs-down me-1"></i>15</a>
+                  </div>
+                    {% for s in i.r_number %}
+                            {{ s }}
+                        {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+    <nav aria-label="..." style="margin-bottom: 5vw" class="m-5 container ">
+          <ul class="pagination">
+      {% if page_obj.has_previous %}
+            <li class="page-item ">
+              <a class="page-link" href="{% url 'home' %}?page=1">first</a>
+            </li>
+            <li class="page-item ">
+              <a class="page-link" href="{% url 'home' %}?page={{ page_obj.previous_page_number }}">previous</a>
+            </li>
+             {% endif %}
+
+            <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+
+            {% if page_obj.has_next %}
+
+            <li class="page-item">
+                <a class="page-link" href="{% url 'home' %}?page={{ page_obj.next_page_number }}">next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'home' %}?page={{ page_obj.paginator.num_pages }}">last</a>
+            </li>
+       {% endif %}
+          </ul>
+
+        </nav>
+
+    {% endif %}
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

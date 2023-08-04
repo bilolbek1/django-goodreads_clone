@@ -1,6 +1,5 @@
 
     .www{
-        color: #b29715 !important;
         font-size: 1.5vw;
         font-family: 'Ubuntu', sans-serif;
         font-weight: 500;
@@ -13,7 +12,7 @@
     right: 0px;
     top: 40px;
     width: 0;
-    background-color: #b29715;
+    background-color: #7b01ff;
     height: 3px;
     transition: 0.4s;
     border-radius: 30px;
@@ -60,6 +59,8 @@
 #detail_con{
     margin-left: 25vw;
 }
+.link-muted { color: #aaa; } .link-muted:hover { color: #1266f1; }
+
 
 
 

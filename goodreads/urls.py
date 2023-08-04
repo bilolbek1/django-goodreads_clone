@@ -18,11 +18,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from .views import LandingPageView
+from .views import LandingPageView, HomePageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingPageView, name='landing'),
+    path('home/', HomePageView, name='home'),
     path('users/', include('users.urls')),
     path('books/', include('books.urls')),
 ]

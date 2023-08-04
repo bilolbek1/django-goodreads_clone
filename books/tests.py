@@ -3,7 +3,7 @@ from django.test import TestCase
 # Create your tests here.
 from django.urls import reverse
 
-from books.models import Book
+from books.models import Book, Review
 from users.models import CustomUser
 
 
@@ -82,6 +82,29 @@ class BookReviewTestCase(TestCase):
         self.assertEqual(review_new[0].review_text, 'Good book')
         self.assertEqual(review_new[0].book_id, book)
         self.assertEqual(review_new[0].user_id, user)
+
+
+class HomeTesCase(TestCase):
+    def test_home_page(self):
+        book = Book.objects.create(title='You and Me', description='Good book')
+        user = CustomUser.objects.create(username='hunter005', first_name='Erik',
+                                         last_name='christ', email='christ@gmail.com', )
+        user.set_password('11223344')
+        user.save()
+        review = Review.objects.create(user_id=user, book_id=book,
+            star_given=4, review_text='Ok'
+        )
+
+
+
+        self.client.login(username='hunter005', password='11223344')
+
+        response = self.client.get(reverse('home'))
+
+        self.assertContains(response, review.review_text)
+        self.assertContains(response, review.star_given)
+        self.assertContains(response, book.books_picture)
+        self.assertContains(response, user.profile_picture)
 
 
 
