@@ -8,9 +8,16 @@ from users.models import CustomUser
 
 
 class BookTestCase(TestCase):
-    def test_list_books(self):
+    def test_search_books(self):
+        Book.objects.create(title='Book1', description='haqida1', isbn='12-s-4')
+
+        response = self.client.get(reverse('list')+'?q=title')
+        self.assertContains(response, 'The book you are looking for does not exist.')
+
+    def test_list_find(self):
         response = self.client.get(reverse('list'))
-        self.assertContains(response, 'There is no books')
+        self.assertContains(response, 'There is no books.')
+
 
     def test_list_page(self):
         Book.objects.create(title='Book1', description='haqida1', isbn='12-s-4')
@@ -86,25 +93,36 @@ class BookReviewTestCase(TestCase):
 
 class HomeTesCase(TestCase):
     def test_home_page(self):
-        book = Book.objects.create(title='You and Me', description='Good book')
+        book = Book.objects.create(title='You and Me', description='Good book1')
         user = CustomUser.objects.create(username='hunter005', first_name='Erik',
                                          last_name='christ', email='christ@gmail.com', )
         user.set_password('11223344')
         user.save()
-        review = Review.objects.create(user_id=user, book_id=book,
-            star_given=4, review_text='Ok'
-        )
+        review1 = Review.objects.create(user_id=user, book_id=book, star_given=3, review_text='Ok1')
+        review2 = Review.objects.create(user_id=user, book_id=book, star_given=5, review_text='Ok2')
+        review3 = Review.objects.create(user_id=user, book_id=book, star_given=2, review_text='Ok3')
+        review4 = Review.objects.create(user_id=user, book_id=book, star_given=4, review_text='Ok4')
+        review5 = Review.objects.create(user_id=user, book_id=book, star_given=4, review_text='Ok5')
 
 
 
         self.client.login(username='hunter005', password='11223344')
 
-        response = self.client.get(reverse('home'))
+        response = self.client.get(reverse('home') or reverse('home')+'?page=1')
 
-        self.assertContains(response, review.review_text)
-        self.assertContains(response, review.star_given)
-        self.assertContains(response, book.books_picture)
-        self.assertContains(response, user.profile_picture)
+        self.assertContains(response, review1.review_text)
+        self.assertContains(response, review2.review_text)
+        self.assertContains(response, review3.review_text)
+        self.assertContains(response, review4.review_text)
+        self.assertNotContains(response, review5.review_text)
+
+        response = self.client.get(reverse('home')+'?page=2')
+
+        self.assertContains(response, review5.review_text)
+        self.assertNotContains(response, review1.review_text)
+        self.assertNotContains(response, review2.review_text)
+        self.assertNotContains(response, review3.review_text)
+        self.assertNotContains(response, review4.review_text)
 
 
 

@@ -28,7 +28,7 @@
             <div id="detail_con" class="col-9 p-3">
                 <h2 class="mb-4">{{ book.title.upper }}</h2>
                 {% for i in author_books  %}
-                <h4 class="mb-5 text-success">{{ i.author.first_name }} {{ i.author.last_name }}</h4>
+                <h4 class="mb-5 text-success">Wrote By {{ i.author.first_name }} {{ i.author.last_name }}</h4>
                 {% endfor %}
 
                 <h2>Description</h2>

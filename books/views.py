@@ -55,15 +55,17 @@ class ReviewView(LoginRequiredMixin, View):
 
 class BookListView(View):
     def get(self, request):
-        books = Book.objects.order_by('id')
+        books = Book.objects.order_by('-id')
         search = request.GET.get('q', '')
         if search:
             books = books.filter(
                 Q(title__icontains=search) or Q(description__icontains=search)
             )
+            if search not in books:
+                messages.info(request, 'The book you are looking for does not exist.')
 
-        if books.count() == 0:
-            messages.warning(request, 'There is no books')
+        if not search and books.count() == 0:
+            messages.warning(request, 'There is no books.')
 
         paginator = Paginator(books, 4)
         page_num = request.GET.get('page', 1)
@@ -74,12 +76,5 @@ class BookListView(View):
             'page_obj': page_obj,
         }
         return render(request, 'book_list.html', context)
-
-
-
-
-
-
-
 
 

@@ -2,8 +2,6 @@
 {% url 'home' as home %}
 {% url 'list' as list %}
 {% url 'landing' as landing %}
-{% url 'profile' as profile %}
-{% url 'profile_update' as profile_update %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +13,9 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark p-3 mb-3">
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-secondary p-3 mb-3">
   <div class="container-fluid">
-    <a class="navbar-brand {% if request.path == landing %} text-light {% endif %} text-success fs-4" href="{% url 'landing' %}">GOODREADS</a>
+    <a class="navbar-brand {% if request.path == landing %} text-light {% endif %} fs-4" style="color: aquamarine" href="{% url 'landing' %}">GOODREADS</a>
     <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon "></span>
     </button>
@@ -45,11 +43,14 @@
         {% if request.user.is_authenticated %}
         <ul class="mb-2 mb-lg-0">
          <li class="nav-item dropdown ">
-          <a class="nav-link dropdown-toggle text-warning" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ request.user.username.upper }}
+{#          <a class="nav-link dropdown-toggle text-warning {% if request.path == '/users/profile/' or request.path == '/users/profile/update/' %} text-light {% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">#}
+{#              {{ request.user.username.upper }}#}
+{#          </a>#}
+            <a class="nav-link dropdown-toggle text-warning {% if request.path == '/users/profile/' or request.path == '/users/profile/update/' %} text-light {% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ request.user.username.capitalize }}
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'profile' %}">Yor Profile</a></li>
+            <li><a class="dropdown-item " href="{% url 'profile' %}">Yor Profile</a></li>
             <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
           {% else %}
               <a style="margin-right: 1vw" class="btn btn-success" href="{% url 'register' %}">SignUp</a>
