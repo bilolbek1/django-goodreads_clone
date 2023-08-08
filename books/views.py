@@ -78,3 +78,42 @@ class BookListView(View):
         return render(request, 'book_list.html', context)
 
 
+
+class ReviewUpdateView(LoginRequiredMixin, View):
+    def get(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = book.review_set.get(id=review_id)
+        update_review = ReviewForm()
+
+        context = {
+            'update_review': update_review,
+            'book': book,
+            'review': review
+        }
+        return render(request, 'update_review.html', context=context)
+
+    def post(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = book.review_set.get(id=review_id)
+        update_review = ReviewForm(
+            instance=review,
+            data=request.POST
+        )
+        if update_review.is_valid():
+            update_review.save()
+
+            return redirect('detail', kwargs={'id': book.id})
+        else:
+            context = {
+                'update_review': update_review,
+            }
+            return render(request, 'update_review.html', context)
+
+
+
+
+
+
+
+
+
