@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView
 
 from .forms import ReviewForm
 from .models import Book, AuthorBook, Review
@@ -91,6 +91,48 @@ class BookListView(View):
             'page_obj': page_obj,
         }
         return render(request, 'book_list.html', context)
+
+
+class ReviewEditView(UpdateView):
+
+    model = Review
+    template_name = 'update_review.html'
+    context_object_name = 'review_edit'
+
+    def get_context_data(self, review_id, book_id, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['book'] = Book.objects.get(pk=book_id)
+
+        return context
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
