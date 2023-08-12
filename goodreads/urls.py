@@ -26,6 +26,8 @@ urlpatterns = [
     path('home/', HomePageView, name='home'),
     path('users/', include('users.urls')),
     path('books/', include('books.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include('api.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
