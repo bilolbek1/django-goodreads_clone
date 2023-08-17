@@ -21,12 +21,7 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 
-class ReviewDetailSerializer(serializers.ModelSerializer):
-    user_id = UserSerializer()
-    book_id = BookSerializer()
-    class Meta:
-        model = Review
-        fields = ['pk', 'star_given', 'review_text', 'user_id', 'book_id']
+
 
 
 
@@ -38,7 +33,16 @@ class BookListSerializer(serializers.ModelSerializer):
 
 
 
+class ReviewDetailSerializer(serializers.ModelSerializer):
+    user_id = UserSerializer(read_only=True)
+    book_id = BookSerializer(read_only=True)
 
+    user_id_id = serializers.IntegerField(write_only=True)
+    book_id_id = serializers.IntegerField(write_only=True)
+    class Meta:
+        model = Review
+        fields = ['pk', 'star_given', 'review_text', 'user_id', 'book_id',
+                  'book_id_id', 'user_id_id']
 
 
 
