@@ -1,11 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block content %}
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta name="description" content="A page for exploring basic HTML documents">
+  <title>LogIn</title>
+    <link href="{% static 'login.css' %}" rel="stylesheet" type="text/css">
 
-    <form method="post">{% csrf_token %}
+  </head>
+  <body>
+
+  {% block content %}
+
+    <form class="form" method="post">{% csrf_token %}
         {{ form_name.as_p }}
 
         <button type="submit">Login</button>
     </form>
 
 {% endblock content %}
+
+
+  </body>
+</html>
+
+

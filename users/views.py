@@ -53,6 +53,7 @@ class LoginView(View):
             return render(request, 'login.html', context)
 
 
+
 class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
         context = {

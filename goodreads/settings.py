@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'books',
     'users',
     'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,4 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 LOGIN_URL = 'login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
