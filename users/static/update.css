@@ -1,0 +1,81 @@
+form{
+    width: 40vw;
+    height: 40vw;
+    margin: 0 auto;
+    padding: 1vw;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid #fff;
+    box-shadow: 0 0 10px black;
+}
+form:hover{
+    border: 1px solid #fff;
+    box-shadow: 0 0 10px black;
+
+}
+body{
+    background-size: cover;
+    object-fit: cover;
+
+}
+
+
+h1{
+    text-align: center;
+    color: #fff;
+    font-family: "Digital-7 Mono", monospace;
+    margin-bottom: 3vw;
+}
+
+input{
+    width: 25vw;
+    height: 2.3vw;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    padding-left: 1vw;
+    margin-bottom: 1.1vw;
+}
+label{
+    font-family: "Digital-7 Mono", monospace;
+    font-weight: normal;
+    color: #fff;
+    font-size: 1.5vw;
+    margin-right: 1.5vw;
+}
+
+p{
+    font-family: sans-serif;
+    color: #4ca878;
+    margin-top: 1vw;
+}
+a{
+    color: #00ffea;
+}
+button{
+    margin-left: 13vw;
+    width: 15vw;
+    height: 3vw;
+    margin-top: 5vw;
+    border-radius: 20px;
+    background: #000000;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 1.5vw;
+    cursor: pointer;
+
+}
+
+button:hover{
+    background: #ffffff;
+    color: #000000;
+    transition: 0.4s all ease-in-out;
+}
+
+input[type='file']{
+    width: 10vw;
+    height: 3vw;
+    color: white;
+    background-color: #9349e6;
+}

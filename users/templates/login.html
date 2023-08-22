@@ -1,25 +1,30 @@
-{% extends 'base.html' %}
+<html lang="en">
+{#{% extends 'base.html' %}#}
 {% load static %}
 
-<html lang="en">
   <head>
   <meta charset="utf-8">
   <meta name="description" content="A page for exploring basic HTML documents">
   <title>LogIn</title>
     <link href="{% static 'login.css' %}" rel="stylesheet" type="text/css">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 
   </head>
   <body>
 
-  {% block content %}
+{#  {% block content %}#}
 
-    <form class="form" method="post">{% csrf_token %}
+    <form  method="post" style="">{% csrf_token %}
+        <h1>LogIn</h1>
+
         {{ form_name.as_p }}
 
         <button type="submit">Login</button>
     </form>
 
-{% endblock content %}
+{#{% endblock content %}#}
 
 
   </body>
