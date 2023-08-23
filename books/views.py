@@ -110,35 +110,36 @@ class BookListView(View):
 
 
 class ReviewEditView(View):
-    def get(self, request, book_pk, review_pk):
-        book = Book.objects.get(pk=book_pk)
-        review = book.review_set.get(pk=review_pk)
+    def get(self, request, pk):
+        book = Book.objects.get(id=pk)
+        review = book.review_set.get(id=pk)
         review_form = ReviewForm(instance=review)
 
         context = {
-            'review_form': review_form,
             'book': book,
             'review': review,
+            'review_form': review_form
         }
+
         return render(request, 'update_review.html', context)
 
-    def post(self, request, book_pk, review_pk):
-        book = Book.objects.get(pk=book_pk)
-        review = book.review_set.get(pk=review_pk)
-        review_form = ReviewForm(instance=review, data=request.POST)
-
-        if review_form.is_valid():
-            review_form.save()
-            return redirect(reverse('detail', kwargs={'pk': book.pk}))
-
-        else:
-            context = {
-                'book': book,
-                'review': review,
-                'review_from': review_form,
-            }
-
-            return render(request, 'update_review.html', context)
+    # def post(self, request, book_pk, review_pk):
+    #     book = Book.objects.get(pk=book_pk)
+    #     review = book.review_set.get(pk=review_pk)
+    #     review_form = ReviewForm(instance=review, data=request.POST)
+    #
+    #     if review_form.is_valid():
+    #         review_form.save()
+    #         return redirect(reverse('detail', kwargs={'pk': book.pk}))
+    #
+    #     else:
+    #         context = {
+    #             'book': book,
+    #             'review': review,
+    #             'review_from': review_form,
+    #         }
+    #
+    #         return render(request, 'update_review.html', context)
 
 
 

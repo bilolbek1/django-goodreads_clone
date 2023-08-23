@@ -80,9 +80,10 @@
 
             {% for i in book.review_set.all %}
 
-                <div class="row border border-success p-3 mb-4 col-8 " style="margin-left: 27vw">
+                <div class="row border border-success p-3 mb-4 col-8 " style="margin-left: 27vw;
+                        border-radius: 20px 5px 20px 10px">
                     <div class="col-2 d-flex ">
-                        <img style="width: 80px; height: 80px; object-fit: cover;
+                        <img style="width: 60px; height: 60px; object-fit: cover;
                             border-radius: 50%" class="ms-5 comment_pic" src="{{ i.user_id.profile_picture.url }}">
                             </div>
                     <div class="col-6">
