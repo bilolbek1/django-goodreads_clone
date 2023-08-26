@@ -1,6 +1,6 @@
 form{
     width: 40vw;
-    height: 40vw;
+    height: 45vw;
     margin: 0 auto;
     padding: 1vw;
     border-radius: 20px;
@@ -52,30 +52,5 @@ p{
 a{
     color: #00ffea;
 }
-button{
-    margin-left: 13vw;
-    width: 15vw;
-    height: 3vw;
-    margin-top: 5vw;
-    border-radius: 20px;
-    background: #000000;
-    border: none;
-    outline: none;
-    color: white;
-    font-size: 1.5vw;
-    cursor: pointer;
 
-}
 
-button:hover{
-    background: #ffffff;
-    color: #000000;
-    transition: 0.4s all ease-in-out;
-}
-
-input[type='file']{
-    width: 10vw;
-    height: 3vw;
-    color: white;
-    background-color: #9349e6;
-}

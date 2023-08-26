@@ -61,6 +61,8 @@ class ProfileView(LoginRequiredMixin, View):
         }
         return render(request, 'profile.html', context)
 
+
+
 class LogOutView(LoginRequiredMixin, View):
     def get(self, response):
         logout(response)
