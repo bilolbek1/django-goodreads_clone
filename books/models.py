@@ -39,9 +39,14 @@ class Review(models.Model):
     review_text = models.TextField()
     star_given = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     created_time = models.DateTimeField(auto_now_add=True, null=True)
+    like = models.ManyToManyField(CustomUser, related_name='liked_comments')
 
     def __str__(self):
         return self.review_text.capitalize()
+
+
+
+
 
 
 

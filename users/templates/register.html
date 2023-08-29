@@ -1,33 +1,120 @@
-<html lang="en">
-{#{% extends 'base.html' %}#}
+{% extends 'base.html' %}
 {% load static %}
 
-  <head>
-  <meta charset="utf-8">
-  <meta name="description" content="A page for exploring basic HTML documents">
-  <title>SignUp</title>
-    <link href="{% static 'register.css' %}" rel="stylesheet" type="text/css">
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 
-  </head>
-  <body style="background-image:url('{% static 'images/bookroom.jpg' %}'); background-size: cover;
-          object-fit: cover; padding-top: 2vw">
 
-{#  {% block content %}#}
+  {% block content %}
+      <style>
+
+.dad{
+    padding: 20px;
+    background-color: #D4E2D4;
+    border-radius: 20px;
+    box-shadow: 0 0 10px black;
+}
+
+label{
+    color: black ;
+    display: block;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.5vw;
+}
+body{
+    margin-bottom: 50px;
+}
+
+h1{
+    text-align: center;
+    color: teal;
+    font-family: "Digital-7 Mono", monospace;
+    margin-bottom: 2vw;
+}
+
+input{
+    outline: teal;
+    width: 100%;
+    height: 3.2vw;
+    border-radius:20px ;
+    margin-bottom: 0.7vw;
+    border: none;
+    padding-left: 1vw;
+}
+
+p{
+    font-family: sans-serif;
+    color: #9c9191;
+    margin-top: 1vw;
+}
+button{
+    width: 160px;
+    height: 50px;
+    text-align: center;
+    margin-left: 14vw;
+    border: none;
+    border-radius: 30px;
+    background-color: teal;
+    color: white;
+}
+
+button:hover{
+    background: white;
+    color: teal;
+    transition: 0.4s all ease-in-out;
+}
+
+      </style>
+      <div class="w-1/2 my-6 dad mx-auto p-6 bg-gray-100 rounded-xl margin-0" style="
+        width: 600px; height: 800px;">
 
     <form  method="post">
         {% csrf_token %}
-        <h1>Register</h1>
+        <h1>Sign Up</h1>
 
-        {{ form_name.as_p }}
+        <div class="mb-3">
+            <label class="inline-block">Username</label>
+            {{ form_name.username }}
+        </div>
 
-        <button type="submit">SignUp</button>
+        <div class="mb-3">
+            <label class="inline-block">First Name</label>
+            {{ form_name.first_name }}
+        </div>
+
+        <div class="mb-3">
+            <label class="block">Last Name</label>
+            {{ form_name.last_name }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block">Email</label>
+            {{ form_name.email }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block">Password</label>
+            {{ form_name.password }}
+        </div>
+
+        {% if form_name.errors or form_name.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100">
+                {% for i in form_name %}
+
+                    {{ i.errors }}
+
+                {% endfor %}
+
+            {{ form_name.non_field_errors }}
+            </div>
+
+
+        {% endif %}
+
+        <button class="bg-teal-500" type="submit">SignUp</button>
     </form>
 
-{#{% endblock content %}#}
+      </div>
+
+{% endblock content %}
 
 
-  </body>
-</html>

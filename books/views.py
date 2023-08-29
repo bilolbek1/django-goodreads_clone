@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -144,14 +145,24 @@ class ReviewEditView(View):
 
 
 
+class ReviewDetailView(View):
+    def get(self, request, pk):
+      review_detail = Review.objects.get(pk=pk)
+      context = {
+          'review_detail': review_detail
+      }
+      return render(request, 'review_detail.html', context)
 
 
 
-
-
-
-
-
+@login_required
+def like_comment(request, pk):
+    comment = Review.objects.get(id=pk)
+    if request.user in comment.likes.all():
+        comment.likes.remove(request.user)
+    else:
+        comment.likes.add(request.user)
+    return redirect('review_detail', book_id=comment.book_id.pk)
 
 
 
