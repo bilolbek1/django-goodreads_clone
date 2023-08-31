@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load hitcount_tags %}
 
 <style>
 #img-fluid{
@@ -14,6 +15,8 @@
 #detail_con{
     margin-left: 25vw;
 }
+
+
 </style>
 {% block content %}
 
@@ -37,7 +40,19 @@
 
                 <h5 class="mb-4">Isbn: {{ book.isbn }}</h5>
                 <h5 class="mb-4">Pages: {{ book.pages }}</h5>
-                <h6 class="mb-5">Created time: {{ book.craeted_time| date:'M d , Y' }}</h6>
+                <h6 class="mb-5" style="color: teal">Created time: {{ book.craeted_time| date:'M d , Y' }}</h6>
+            <p style="color: #AA77FF"><i class="fa-solid fa-eye fa-xl"></i>  {% get_hit_count for book %}</p>
+
+            <form method="post" style="margin-top:2vw" action="{% url 'save' %}">{% csrf_token %}
+
+                <input type="hidden" value="{{ book.pk }}" name="book_id">
+                        {% if user not in book.saved.all %}
+                            <button style="border: none; background-color: white" type="submit"><i style="color: #707070" class="fa-solid fa-bookmark fa-2xl"></i></button>
+                        {% else %}
+                            <button style="border: none; background-color: white" type="submit"><i style="color: #ddb635" class="fa-solid fa-bookmark fa-2xl"></i></button><p style="color: #ddb635; margin-top:2vw ; font-size: 1.5vw; font-weight: 500">You saved this book</p>
+                        {% endif %}
+
+            </form>
 
 
 
@@ -117,7 +132,23 @@
                         </p>
                 </div>
 
-                <a href="{% url 'review_detail'  %}"></a><h6 class="text-secondary">{{ i.review_text }}</h6>
+                <h6 class="text-secondary">{{ i.review_text }}</h6>
+
+                    <form style="text-align: left; margin-top: 1vw" method="post" action="{% url 'like' %}">
+                        {% csrf_token %}
+
+                        <input type="hidden" value="{{ i.pk }}" name="post_id">
+                        {% if user not in i.liked.all %}
+                            <button style="border: none; background-color: white" type="submit"><i class="fa-solid fa-heart fa-2xl"></i></button>
+                        {% else %}
+                            <button style="border: none; background-color: white" type="submit"><i style="color: #d25252" class="fa-solid fa-heart fa-2xl"></i></button>
+
+                        {% endif %}
+                    <strong>{{ i.liked.all.count }}</strong>
+
+                    </form>
+
+
                     </div>
 
 

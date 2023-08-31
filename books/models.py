@@ -1,10 +1,14 @@
 from django.db import models
-from django.db.models import UniqueConstraint
-from django.utils import timezone
+
 
 from users.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
+SAVED_TYPE = (
+    ('Save', 'Save'),
+    ('Saved', 'Saved')
+)
 
 class Book(models.Model):
     title = models.CharField(max_length=150)
@@ -13,9 +17,21 @@ class Book(models.Model):
     books_picture = models.ImageField(default='default_book.png')
     pages = models.IntegerField(null=True)
     craeted_time = models.DateTimeField(auto_now_add=True, null=True)
+    saved = models.ManyToManyField(CustomUser, default=None, blank=True, related_name='saves')
 
     def __str__(self):
         return self.title.upper()
+
+
+
+class Save(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    value = models.CharField(choices=SAVED_TYPE, max_length=10, default='Save')
+
+
+
+
 
 
 class Author(models.Model):
@@ -39,10 +55,28 @@ class Review(models.Model):
     review_text = models.TextField()
     star_given = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     created_time = models.DateTimeField(auto_now_add=True, null=True)
-    like = models.ManyToManyField(CustomUser, related_name='liked_comments')
+    liked = models.ManyToManyField(CustomUser, default=None, blank=True, related_name='likes')
 
     def __str__(self):
         return self.review_text.capitalize()
+
+
+LIKE_CHOICES = (
+    ('Like', 'Like'),
+    ('Unlike', 'Unlike')
+)
+
+
+class Like(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    value = models.CharField(choices=LIKE_CHOICES, default='Like', max_length=10)
+
+
+
+
+
+
 
 
 

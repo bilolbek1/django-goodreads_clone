@@ -9,16 +9,18 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, UpdateView
+from hitcount.views import HitCountDetailView
 
 from .forms import ReviewForm
-from .models import Book, AuthorBook, Review
+from .models import Book, AuthorBook, Review, Like, Save
 
 
+#
 # class BookDetailView(View):
-#     def get(self, request, id, review_id):
-#         book = Book.objects.get(id=id)
+#     def get(self, request, pk):
+#         book = Book.objects.get(pk=pk)
 #         author_books = AuthorBook.objects.filter(book=book)
-#         review_set = book.review_set.get(id=review_id)
+#         review_set = book.review_set.filter(pk=pk)
 #
 #         review = ReviewForm()
 #
@@ -31,10 +33,12 @@ from .models import Book, AuthorBook, Review
 #         return render(request, 'book_detail.html', context)
 
 
-class BookDetailView(DetailView):
+
+class BookDetailView(HitCountDetailView):
     model = Book
     template_name = 'book_detail.html'
     context_object_name = 'book'
+    count_hit = True
 
 
     def get_context_data(self, **kwargs):
@@ -79,8 +83,6 @@ class BookListView(View):
             books = books.filter(
                 Q(title__icontains=search) or Q(description__icontains=search)
             )
-            if search not in books:
-                messages.info(request, 'The book you are looking for does not exist.')
 
         if not search and books.count() == 0:
             messages.warning(request, 'There is no books.')
@@ -110,21 +112,21 @@ class BookListView(View):
 
 
 
-class ReviewEditView(View):
-    def get(self, request, pk):
-        book = Book.objects.get(id=pk)
-        review = book.review_set.get(id=pk)
-        review_form = ReviewForm(instance=review)
-
-        context = {
-            'book': book,
-            'review': review,
-            'review_form': review_form
-        }
-
-        return render(request, 'update_review.html', context)
-
-    # def post(self, request, book_pk, review_pk):
+# class ReviewEditView(View):
+#     def get(self, request, pk):
+#         book = Book.objects.get(id=pk)
+#         review = book.review_set.get(id=pk)
+#         review_form = ReviewForm(instance=review)
+#
+#         context = {
+#             'book': book,
+#             'review': review,
+#             'review_form': review_form
+#         }
+#
+#         return render(request, 'update_review.html', context)
+#
+#      def post(self, request, book_pk, review_pk):
     #     book = Book.objects.get(pk=book_pk)
     #     review = book.review_set.get(pk=review_pk)
     #     review_form = ReviewForm(instance=review, data=request.POST)
@@ -145,33 +147,111 @@ class ReviewEditView(View):
 
 
 
-class ReviewDetailView(View):
-    def get(self, request, pk):
-      review_detail = Review.objects.get(pk=pk)
-      context = {
-          'review_detail': review_detail
-      }
-      return render(request, 'review_detail.html', context)
+
+# class LikeView(View):
+#     def get(self, request):
+#         user = request.user
+#         post_id = request.POST.get('post_id')
+#         post_obj = Review.objects.get(pk=post_id)
+#
+#         context = {
+#             'user': user,
+#             'post_obj': post_obj,
+#         }
+#         return render(request, 'book_detail.html', context)
+#
+#     def post(self, request):
+#         user = request.user
+#         post_id = request.POST.get('post_id')
+#         post_obj = Review.objects.get(pk=post_id)
+#
+#
+#         if user in post_obj.liked.all():
+#             post_obj.liked.remove(user)
+#         else:
+#             post_obj.liked.add(user)
+#
+#         like, created = Like.objects.get_or_create(user=user, review_id=post_id)
+#
+#         if not created:
+#             if like.value == 'Like':
+#                 like.value = 'Unlike'
+#             else:
+#                 like.value = 'Like'
+#         like.save()
+#
+#         return redirect('detail')
+#
+
+
+class LikeView(View):
+    def get(self, request):
+        user = request.user
+        post_id = request.POST.get('post_id')
+        post_obj = Review.objects.get(pk=post_id)
+
+        context = {
+            'user': user,
+            'post_obj': post_obj,
+        }
+        return render(request, 'book_detail.html', context)
+
+    def post(self, request):
+        user = request.user
+        post_id = request.POST.get('post_id')
+        post_obj = Review.objects.get(pk=post_id)
+
+        if user in post_obj.liked.all():
+            post_obj.liked.remove(user)
+        else:
+            post_obj.liked.add(user)
+
+        like, created = Like.objects.get_or_create(user=user, review_id=post_id)
+
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+        like.save()
+
+        book_id = post_obj.book_id.pk
+        return redirect('detail', pk=book_id)
 
 
 
-@login_required
-def like_comment(request, pk):
-    comment = Review.objects.get(id=pk)
-    if request.user in comment.likes.all():
-        comment.likes.remove(request.user)
-    else:
-        comment.likes.add(request.user)
-    return redirect('review_detail', book_id=comment.book_id.pk)
+
+class SaveView(View):
+    def get(self, request):
+        user = request.user
+
+        context = {
+            'user': user,
+        }
+        return render(request, 'book_detail.html', context)
+
+    def post(self, request):
+        user = request.user
+        book_id = request.POST.get('book_id')
+        post_obj = Book.objects.get(pk=book_id)
 
 
+        if user in post_obj.saved.all():
+            post_obj.saved.remove(user)
+        else:
+            post_obj.saved.add(user)
 
+        save, created = Save.objects.get_or_create(user=user, book_id=book_id)
 
+        if not created:
+            if save.value == 'Save':
+                save.value = 'Saved'
+                messages.success(request, 'You saved book')
+            else:
+                save.value = 'Save'
+        save.save()
 
-
-
-
-
+        return redirect('detail', pk=book_id)
 
 
 
