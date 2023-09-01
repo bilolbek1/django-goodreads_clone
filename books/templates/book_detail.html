@@ -2,54 +2,131 @@
 {% load static %}
 {% load hitcount_tags %}
 
+
+{% block content %}
+
 <style>
-#img-fluid{
-    width: 15vw;
-    height: 30vw;
-    border-radius: 0 20px 20px 0px;
-    object-fit: cover;
-}
-#img-con{
-    height: 100vh;
-}
-#detail_con{
-    margin-left: 25vw;
-}
+
+    #img-fluid{
+        width: 15vw;
+        height: 30vw;
+        border-radius: 0 20px 20px 0px;
+        object-fit: cover;
+    }
+
+    #img-con{
+        height: 100vh;
+    }
+
+    #detail_con{
+        margin-left: 25vw;
+    }
+    .book_title{
+        color: #84D2C5;
+    }
+    .book_author{
+        color: #459d8d;
+    }
+    .book_des{
+        color: #5eb8a8;
+    }
+    .book_des_text{
+        color: #4ae4c8;
+    }
+    .book_isbn{
+        color: #41bfa2;
+    }
+    .book_pages_count{
+        color: #41bfa2;
+    }
+    .book_created{
+        color: #41bfa2;
+    }
+    .save{
+        background-color: #145346;
+        border: none;
+    }
+    .bg-success1{
+        background-color: #03816a;
+        border-radius: 30px;
+    }
+    .form_review input{
+        background-color: #63cfb8;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+    }
+    .form_review textarea{
+        background-color: #63cfb8;
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        padding: 10px;
+    }
+    .form_review button[type='submit']{
+        background-color: #00ffcf;
+        color: #087359;
+        border-radius: 10px;
+        border: none;
+    }
+    .form_review button[type='submit']:hover{
+        background-color: #087359;
+        color: #00ffcf;
+        transition: 0.4s all ease;
+        box-shadow: #43e0a1 0px 0px 9px 0px;
+    }
+    .review{
+        text-align: center;
+        color: #00ffea;
+    }
+     .review_container{
+        background-color: #06b18f;
+        margin-left: 27vw;
+        border: none;
+         border-radius: 30px ;
+    }
+     .review_text{
+         color: #024d34;
+     }
+     .like{
+         border: none;
+         background-color: #06b18f;
+     }
+
 
 
 </style>
-{% block content %}
 
 <div class="container">
         <div class="row">
-            <div id="img-con" class="col-3 position-fixed p-3 d-flex flex-column ">
+            <div id="img-con" class="col-3 position-fixed p-3 d-flex flex-column border-left">
                 <img id="img-fluid" class="img-fluid ms-5 mb-4 " src="{{ book.books_picture.url }}" alt="">
 
-                <button style="border-radius: 0" class="btn btn-outline-success ">Read</button>
+                <button style="border-radius: 0" class="btn btn-success ">Read</button>
             </div>
 
             <div id="detail_con" class="col-9 p-3">
-                <h2 class="mb-4">{{ book.title.upper }}</h2>
+                <h2 class="mb-4 book_title">{{ book.title.upper }}</h2>
                 {% for i in author_books  %}
-                <h4 class="mb-5 text-success">Wrote By {{ i.author.first_name }} {{ i.author.last_name }}</h4>
+                <h4 class="mb-5 book_author">Wrote By {{ i.author.first_name }} {{ i.author.last_name }}</h4>
                 {% endfor %}
 
-                <h2>Description</h2>
-                <hr>
-                <p>{{ book.description }}</p>
+                <h2 class="book_des">Description</h2>
+                <hr style="color: white">
+                <p class="book_des_text">{{ book.description }}</p>
 
-                <h5 class="mb-4">Isbn: {{ book.isbn }}</h5>
-                <h5 class="mb-4">Pages: {{ book.pages }}</h5>
-                <h6 class="mb-5" style="color: teal">Created time: {{ book.craeted_time| date:'M d , Y' }}</h6>
+                <h5 class="mb-4 book_isbn">Isbn: {{ book.isbn }}</h5>
+                <h5 class="mb-4 book_pages_count">Pages: {{ book.pages }}</h5>
+                <h6 class="mb-5 book_created">Created time: {{ book.craeted_time| date:'M d , Y' }}</h6>
             <p style="color: #AA77FF"><i class="fa-solid fa-eye fa-xl"></i>  {% get_hit_count for book %}</p>
 
             <form method="post" style="margin-top:2vw" action="{% url 'save' %}">{% csrf_token %}
 
                 <input type="hidden" value="{{ book.pk }}" name="book_id">
                         {% if user not in book.saved.all %}
-                            <button style="border: none; background-color: white" type="submit"><i style="color: #707070" class="fa-solid fa-bookmark fa-2xl"></i></button>
+                            <button class="save" type="submit"><i style="color: #707070" class="fa-solid fa-bookmark fa-2xl"></i></button>
                         {% else %}
-                            <button style="border: none; background-color: white" type="submit"><i style="color: #ddb635" class="fa-solid fa-bookmark fa-2xl"></i></button><p style="color: #ddb635; margin-top:2vw ; font-size: 1.5vw; font-weight: 500">You saved this book</p>
+                            <button class="save" type="submit"><i style="color: #ddb635" class="fa-solid fa-bookmark fa-2xl"></i></button><p style="color: #ddb635; margin-top:2vw ; font-size: 1.5vw; font-weight: 500">You saved this book</p>
                         {% endif %}
 
             </form>
@@ -57,19 +134,19 @@
 
 
 
-<section style="background-color: #444646;">
+<section style="background-color: #106961; border-radius: 30px">
   <div class="container my-5 py-5 text-dark">
     <div class="row d-flex justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-6">
-        <div class="card me-5" style="width: 40vw;">
-          <div class="card-body p-4 ">
-            <div class="d-flex flex-start w-100 ps-5">
+        <div class="card me-5 bg-success1" style="width: 40vw;">
+          <div class="card-body p-4 bg-success1">
+            <div class="d-flex flex-start w-100 ps-5 bg-success1">
             <img class="me-3" style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%" src="{{ request.user.profile_picture.url }}">
-              <form method="post" action="{% url 'review' book.id %}">
+              <form class="form_review" method="post" action="{% url 'review' book.id %}">
                     {% csrf_token %}
                     {{ review.as_p }}
 
-                    <button style="border-radius: 0;" class="btn btn-warning ms-5" type="submit">Add Review</button>
+                    <button class="btn btn-warning ms-5" type="submit">Add Review</button>
                 </form>
                 </div>
               </div>
@@ -90,13 +167,12 @@
 
 
 
-                <h1 style="text-align: center">Reviews</h1>
-                <hr class="mb-5 col-8" style="margin-left: 25vw">
+                <h1 class="review">Reviews</h1>
+                <hr class="mb-5 col-8" style="margin-left: 25vw; color: white">
 
             {% for i in book.review_set.all %}
 
-                <div class="row border border-success p-3 mb-4 col-8 " style="margin-left: 27vw;
-                        border-radius: 20px 5px 20px 10px">
+                <div class="row border border-success p-3 mb-4 col-8 review_container ">
                     <div class="col-2 d-flex ">
                         <img style="width: 60px; height: 60px; object-fit: cover;
                             border-radius: 50%" class="ms-5 comment_pic" src="{{ i.user_id.profile_picture.url }}">
@@ -132,19 +208,21 @@
                         </p>
                 </div>
 
-                <h6 class="text-secondary">{{ i.review_text }}</h6>
+                <h6 class="review_text">{{ i.review_text }}</h6>
 
                     <form style="text-align: left; margin-top: 1vw" method="post" action="{% url 'like' %}">
                         {% csrf_token %}
 
                         <input type="hidden" value="{{ i.pk }}" name="post_id">
                         {% if user not in i.liked.all %}
-                            <button style="border: none; background-color: white" type="submit"><i class="fa-solid fa-heart fa-2xl"></i></button>
+                            <button class="like" type="submit"><i style="color: white" class="fa-solid fa-heart fa-xl"></i></button>
+                            <strong style="color: white">{{ i.liked.all.count }}</strong>
+
                         {% else %}
-                            <button style="border: none; background-color: white" type="submit"><i style="color: #d25252" class="fa-solid fa-heart fa-2xl"></i></button>
+                            <button class="like" type="submit"><i style="color: #ff0000" class="fa-solid fa-heart fa-xl"></i></button>
+                            <strong style="color: red">{{ i.liked.all.count }}</strong>
 
                         {% endif %}
-                    <strong>{{ i.liked.all.count }}</strong>
 
                     </form>
 

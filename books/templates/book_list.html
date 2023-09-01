@@ -2,31 +2,39 @@
 {% load static %}
 
 {% block content %}
+    <style>
+    .page-link{
+        color: #84D2C5;
+        background-color: #02705c;
+        border: none;
+    }
+    </style>
+
     <div class="container">
 
     {% if books %}
-    <h1 style="text-align: center">Books</h1>
+    <h1 class="mb-5" style="text-align: center; color: #6dcd9a">Books</h1>
     {% else %}
 
     {% endif %}
 
 
 <div class="card mb-3 " style="max-width: 100vw; height: 20vw; border: none">
-  <div class="row no-gutters">
+  <div class="row no-gutters" style="background-color: #145346">
 
       {% if page_obj %}
 {% for i in page_obj %}
 
 
-      <div class="col-5 ms-5 me-5 mb-3 border border-success" >
-    <div class="row">
-          <div class="col-md-5 ">
-      <img src="{{ i.books_picture.url }}" class="card-img img-fluid img-thumbnail"  alt="...">
+      <div class="col-5 ms-5 me-5 mb-5" style="background-color: #02705c; border-radius: 30px; border: none">
+    <div class="row" >
+          <div class="col-md-5 " >
+      <img style="border-radius: 30px" src="{{ i.books_picture.url }}" class="card-img img-fluid img-thumbnail"  alt="...">
     </div>
     <div class="col-md-7 ">
       <div class="card-body">
-        <h5 class="card-title mb-5"><a class="text-dark" style="text-decoration: none" href="{% url 'detail' i.id %}">{{ i.title.upper }}</a></h5>
-        <p class="card-text">{{ i.description|truncatewords:20 }}</p>
+        <h5 class="card-title mb-5" ><a class="" style="text-decoration: none; color: #84D2C5" href="{% url 'detail' i.id %}">{{ i.title.upper }}</a></h5>
+        <p class="card-text" style="color: #9deeed">{{ i.description|truncatewords:20 }}</p>
       </div>
 
     </div>
