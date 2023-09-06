@@ -4,8 +4,8 @@
 {% block content %}
     <style>
     .page-link{
-        color: #84D2C5;
-        background-color: #02705c;
+        color: #D6BCFA;
+        background-color: #273140;
         border: none;
     }
     </style>
@@ -19,14 +19,14 @@
     {% endif %}
 
 
-<div class="card mb-3 " style="max-width: 100vw; height: 20vw; border: none">
-  <div class="row no-gutters" style="background-color: #145346">
+<div class="card mb-3 " style="max-width: 100vw; height: 20vw; border: none; background-color:#1A202C ">
+  <div class="row no-gutters" style="background-color: #1A202C">
 
       {% if page_obj %}
 {% for i in page_obj %}
 
 
-      <div class="col-5 ms-5 me-5 mb-5" style="background-color: #02705c; border-radius: 30px; border: none">
+      <div class="col-5 ms-5 me-5 mb-5" style="background-color: #2D3748; border-radius: 30px; border: none; box-shadow: rgba(108,108,223,0.2) 0px 7px 29px 0px;">
     <div class="row" >
           <div class="col-md-5 " >
       <img style="border-radius: 30px" src="{{ i.books_picture.url }}" class="card-img img-fluid img-thumbnail"  alt="...">

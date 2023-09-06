@@ -22,75 +22,91 @@
         margin-left: 25vw;
     }
     .book_title{
-        color: #84D2C5;
+        color: #D6BCFA;
     }
     .book_author{
-        color: #459d8d;
+        color: #805AD5;
     }
     .book_des{
-        color: #5eb8a8;
+        color: #8f73b9;
     }
     .book_des_text{
-        color: #4ae4c8;
+        color: white;
     }
     .book_isbn{
-        color: #41bfa2;
+        color: #6345a5;
     }
     .book_pages_count{
-        color: #41bfa2;
+        color: #655297;
     }
     .book_created{
-        color: #41bfa2;
+        color: #9e5cff;
     }
     .save{
-        background-color: #145346;
+        background-color: #1A202C;
         border: none;
+    .save:hover{
+        color: red;
+        cursor: pointer;
+    }
+
     }
     .bg-success1{
-        background-color: #03816a;
+        background-color: #384458;
         border-radius: 30px;
+        border: none;
     }
     .form_review input{
-        background-color: #63cfb8;
+        background-color: #22314e;
         border: none;
         outline: none;
         border-radius: 10px;
+        padding-left: 0.5vw;
     }
     .form_review textarea{
-        background-color: #63cfb8;
+        background-color: #22314e;
         border: none;
         outline: none;
         border-radius: 20px;
         padding: 10px;
     }
     .form_review button[type='submit']{
-        background-color: #00ffcf;
-        color: #087359;
+        background-color: #AA77FF;
+        color: white;
         border-radius: 10px;
         border: none;
     }
+    .form_review label{
+        color: #AA77FF;
+    }
     .form_review button[type='submit']:hover{
-        background-color: #087359;
-        color: #00ffcf;
+        background-color: #243849;
+        color: #AA77FF;
         transition: 0.4s all ease;
-        box-shadow: #43e0a1 0px 0px 9px 0px;
+        box-shadow: #343465 0px 0px 9px 0px;
     }
     .review{
         text-align: center;
-        color: #00ffea;
+        color: #AA77FF;
     }
      .review_container{
-        background-color: #06b18f;
+        background-color: #2D3748;
         margin-left: 27vw;
+        border-radius: 30px ;
         border: none;
-         border-radius: 30px ;
     }
      .review_text{
-         color: #024d34;
+         color: white;
      }
      .like{
          border: none;
-         background-color: #06b18f;
+         background-color: #2D3748;
+     }
+     .sms{
+         color: #b078ed;
+     }
+     .sms1{
+         color: #415df8;
      }
 
 
@@ -126,7 +142,9 @@
                         {% if user not in book.saved.all %}
                             <button class="save" type="submit"><i style="color: #707070" class="fa-solid fa-bookmark fa-2xl"></i></button>
                         {% else %}
-                            <button class="save" type="submit"><i style="color: #ddb635" class="fa-solid fa-bookmark fa-2xl"></i></button><p style="color: #ddb635; margin-top:2vw ; font-size: 1.5vw; font-weight: 500">You saved this book</p>
+                            <button class="save" type="submit"><i style="color: #ddb635" class="fa-solid fa-bookmark fa-2xl"></i></button>
+
+{#                            <a href="{% url 'saved_books' %}">Saved books</a>#}
                         {% endif %}
 
             </form>
@@ -134,7 +152,9 @@
 
 
 
-<section style="background-color: #106961; border-radius: 30px">
+
+
+<section style="background-color: #2c3754; border-radius: 30px">
   <div class="container my-5 py-5 text-dark">
     <div class="row d-flex justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-6">
@@ -172,14 +192,14 @@
 
             {% for i in book.review_set.all %}
 
-                <div class="row border border-success p-3 mb-4 col-8 review_container ">
+                <div class="row p-3 mb-4 col-8 review_container ">
                     <div class="col-2 d-flex ">
                         <img style="width: 60px; height: 60px; object-fit: cover;
                             border-radius: 50%" class="ms-5 comment_pic" src="{{ i.user_id.profile_picture.url }}">
                             </div>
                     <div class="col-6">
                     <div class="d-flex flex-row " style="width: 40vw;">
-                        <b class="me-2">{{ i.user_id.username }} </b> <p class="me-2">by</p>
+                        <b class="me-2 sms1">{{ i.user_id.username }} </b> <p class="me-2 sms">by</p>
                         <p> {% if i.star_given == 5 %}
                     <i class="fa-solid text-warning fa-star"></i>
                     <i class="fa-solid text-warning fa-star"></i>
@@ -204,7 +224,7 @@
                 {% endif %}
                 {% if i.star_given == 1 %}
                     <i class="fa-solid text-warning fa-star"></i>
-                {% endif %} <p class="ms-4">{{ i.created_time|date:"F j, Y" }} at {{ i.created_time|date:"H:i" }}</p>
+                {% endif %} <p class="ms-4 sms">{{ i.created_time|date:"F j, Y" }} at {{ i.created_time|date:"H:i" }}</p>
                         </p>
                 </div>
 
