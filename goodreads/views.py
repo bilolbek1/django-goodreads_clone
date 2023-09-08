@@ -3,11 +3,17 @@ from django.shortcuts import render
 import datetime
 from time import sleep
 
-from books.models import Review
+from books.models import Review, Book
 
 
 def LandingPageView(request):
-    return render(request, 'landing.html')
+    book_last = Book.objects.order_by('-pk')[0]
+    books = Book.objects.all().order_by('-pk')[1:5]
+    context = {
+        'books': books,
+        'book_last': book_last
+    }
+    return render(request, 'landing.html', context)
 
 
 def HomePageView(request):

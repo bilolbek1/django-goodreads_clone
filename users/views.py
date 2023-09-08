@@ -4,6 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
+
+from books.models import Save
 from .forms import RegisterForm, ProfilUpdateForm
 
 
@@ -56,8 +58,13 @@ class LoginView(View):
 
 class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
+        user = request.user
+        saved = Save.objects.all()
+
+        
+
         context = {
-            'user': request.user
+            'user': user
         }
         return render(request, 'profile.html', context)
 

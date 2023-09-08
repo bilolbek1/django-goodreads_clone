@@ -15,7 +15,7 @@
     height: 550px;
 }
 
-label{
+.login-label{
     color: black ;
     display: block;
     font-family: sans-serif;
@@ -57,7 +57,7 @@ p{
     color: #9c9191;
     margin-top: 1vw;
 }
-button{
+.login-btn{
     width: 160px;
     height: 50px;
     text-align: center;
@@ -69,7 +69,7 @@ button{
     margin-top: 30px;
 }
 
-button:hover{
+.login-btn:hover{
     background: white;
     color: teal;
     transition: 0.4s all ease-in-out;
@@ -83,12 +83,12 @@ button:hover{
         <h1>Log In</h1>
 
         <div class="mb-3">
-            <label class="inline-block">Username</label>
+            <label class="inline-block login-label">Username</label>
             {{ form_name.username }}
         </div>
 
         <div class="mb-3">
-            <label class="inline-block">Password</label>
+            <label class="inline-block login-label">Password</label>
             {{ form_name.password }}
         </div>
 
@@ -108,7 +108,7 @@ button:hover{
 
         {% endif %}
 
-        <button class="bg-teal-500" type="submit">Log In</button>
+        <button class="bg-teal-500 login-btn" type="submit">Log In</button>
     </form>
 
       </div>

@@ -184,7 +184,7 @@ class BookListView(View):
 #
 
 
-class LikeView(View):
+class LikeView(LoginRequiredMixin ,View):
     def get(self, request):
         user = request.user
         post_id = request.POST.get('post_id')
@@ -221,7 +221,7 @@ class LikeView(View):
 
 
 
-class SaveView(View):
+class SaveView(LoginRequiredMixin ,View):
     def get(self, request):
         user = request.user
 
@@ -233,6 +233,7 @@ class SaveView(View):
     def post(self, request):
         user = request.user
         book_id = request.POST.get('book_id')
+        book_id = int(book_id)
         post_obj = Book.objects.get(pk=book_id)
 
 
@@ -246,9 +247,9 @@ class SaveView(View):
         if not created:
             if save.value == 'Save':
                 save.value = 'Saved'
-                messages.success(request, 'You saved book')
             else:
                 save.value = 'Save'
+                messages.success(request, 'You saved book')
         save.save()
 
         return redirect('detail', pk=book_id)
