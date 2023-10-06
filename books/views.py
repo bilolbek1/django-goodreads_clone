@@ -51,8 +51,9 @@ class BookDetailView(HitCountDetailView):
 
 
 class ReviewView(LoginRequiredMixin, View):
-    def post(self, request, pk):
+    def post(self, request, pk, review_id):
         book = Book.objects.get(pk=pk)
+        revieww = book.bookreview_set.get(id=review_id)
         review = ReviewForm(data=request.POST)
 
         if review.is_valid():
@@ -68,6 +69,7 @@ class ReviewView(LoginRequiredMixin, View):
         context = {
             'book': book,
             'review': review,
+            "revieww": revieww
         }
         return render(request, 'book_detail.html', context)
 
@@ -98,90 +100,6 @@ class BookListView(View):
         return render(request, 'book_list.html', context)
 
 
-# class ReviewEditView(UpdateView):
-#
-#     model = Review
-#     template_name = 'update_review.html'
-#     context_object_name = 'review_edit'
-#
-#     def get_context_data(self, review_id, book_id, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['book'] = Book.objects.get(pk=book_id)
-#
-#         return context
-
-
-
-# class ReviewEditView(View):
-#     def get(self, request, pk):
-#         book = Book.objects.get(id=pk)
-#         review = book.review_set.get(id=pk)
-#         review_form = ReviewForm(instance=review)
-#
-#         context = {
-#             'book': book,
-#             'review': review,
-#             'review_form': review_form
-#         }
-#
-#         return render(request, 'update_review.html', context)
-#
-#      def post(self, request, book_pk, review_pk):
-    #     book = Book.objects.get(pk=book_pk)
-    #     review = book.review_set.get(pk=review_pk)
-    #     review_form = ReviewForm(instance=review, data=request.POST)
-    #
-    #     if review_form.is_valid():
-    #         review_form.save()
-    #         return redirect(reverse('detail', kwargs={'pk': book.pk}))
-    #
-    #     else:
-    #         context = {
-    #             'book': book,
-    #             'review': review,
-    #             'review_from': review_form,
-    #         }
-    #
-    #         return render(request, 'update_review.html', context)
-
-
-
-
-
-# class LikeView(View):
-#     def get(self, request):
-#         user = request.user
-#         post_id = request.POST.get('post_id')
-#         post_obj = Review.objects.get(pk=post_id)
-#
-#         context = {
-#             'user': user,
-#             'post_obj': post_obj,
-#         }
-#         return render(request, 'book_detail.html', context)
-#
-#     def post(self, request):
-#         user = request.user
-#         post_id = request.POST.get('post_id')
-#         post_obj = Review.objects.get(pk=post_id)
-#
-#
-#         if user in post_obj.liked.all():
-#             post_obj.liked.remove(user)
-#         else:
-#             post_obj.liked.add(user)
-#
-#         like, created = Like.objects.get_or_create(user=user, review_id=post_id)
-#
-#         if not created:
-#             if like.value == 'Like':
-#                 like.value = 'Unlike'
-#             else:
-#                 like.value = 'Like'
-#         like.save()
-#
-#         return redirect('detail')
-#
 
 
 class LikeView(LoginRequiredMixin ,View):

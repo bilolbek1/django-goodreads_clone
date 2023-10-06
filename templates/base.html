@@ -40,14 +40,7 @@
           <a class="nav-link active ww2" id="clock"></a>
         </li>
       </ul>
-        {% if request.user.is_authenticated %}
-        <form class="d-flex" style="margin-right: 2vw" role="search">
-        {% else %}
-        <form class="d-flex" style="margin-right: 4vw"; role="search">
-        {% endif %}
-        <input style="border-radius: 0" class="form-control me-2" type="search" value="{{ search }}" name="q" placeholder="Search" aria-label="Search">
-        <button style="border-radius: 0" class="btn btn-outline-primary" type="submit">Search</button>
-      </form>
+
 
         {% if request.user.is_authenticated %}
         <ul class="mb-2 mb-lg-0">

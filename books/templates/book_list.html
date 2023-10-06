@@ -8,6 +8,16 @@
         background-color: #273140;
         border: none;
     }
+    .search input{
+        width: 60vw;
+    }
+    .search button{
+        width: 5vw;
+    }
+    .search{
+        margin-left: 10vw;
+        margin-bottom: 5vw;
+    }
     </style>
 
     <div class="container">
@@ -21,6 +31,12 @@
 
 <div class="card mb-3 " style="max-width: 100vw; height: 20vw; border: none; background-color:#1A202C ">
   <div class="row no-gutters" style="background-color: #1A202C">
+
+      <form class="d-flex search" style="margin-right: 2vw" role="search">
+        <input style="border-radius: 0" class="form-control me-2" type="search" value="{{ search }}" name="q" placeholder="Search" aria-label="Search">
+        <button style="border-radius: 0" class="btn btn-outline-primary" type="submit">Search</button>
+      </form>
+
 
       {% if page_obj %}
 {% for i in page_obj %}
