@@ -51,9 +51,8 @@ class BookDetailView(HitCountDetailView):
 
 
 class ReviewView(LoginRequiredMixin, View):
-    def post(self, request, pk, review_id):
+    def post(self, request, pk):
         book = Book.objects.get(pk=pk)
-        revieww = book.bookreview_set.get(id=review_id)
         review = ReviewForm(data=request.POST)
 
         if review.is_valid():
@@ -69,7 +68,6 @@ class ReviewView(LoginRequiredMixin, View):
         context = {
             'book': book,
             'review': review,
-            "revieww": revieww
         }
         return render(request, 'book_detail.html', context)
 
@@ -83,7 +81,7 @@ class BookListView(View):
         search = request.GET.get('q', '')
         if search:
             books = books.filter(
-                Q(title__icontains=search) or Q(description__icontains=search)
+                Q(title__icontains=search) | Q(description__icontains=search)
             )
 
         if not search and books.count() == 0:
