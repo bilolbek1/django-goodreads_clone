@@ -135,7 +135,7 @@ class LikeView(LoginRequiredMixin ,View):
         return redirect('detail', pk=book_id)
 
 
-
+saved_books = []
 
 class SaveView(LoginRequiredMixin ,View):
     def get(self, request):
@@ -163,17 +163,32 @@ class SaveView(LoginRequiredMixin ,View):
         if not created:
             if save.value == 'Save':
                 save.value = 'Saved'
+                book = save.book
+                if book in saved_books:
+                    saved_books.remove(book)
+
             else:
                 save.value = 'Save'
                 messages.success(request, 'You saved book')
+                book = save.book
+                if book not in saved_books:
+                    saved_books.append(book)
+
         save.save()
 
         return redirect('detail', pk=book_id)
 
 
+class SavedBooksView(View):
+    def get(self, request, user_id):
 
-
-
+        if request.user.id == user_id:
+            context = {
+                "saved_books": saved_books
+            }
+            return render(request, "saved_books.html", context)
+        else:
+            messages.warning(request, "WTF")
 
 
 

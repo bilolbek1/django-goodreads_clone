@@ -1,112 +1,118 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<style>
+@media (min-width: 1025px) {
+.h-custom {
+height: 100vh !important;
+}
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+font-size: 1rem;
+line-height: 2.15;
+padding-left: .75em;
+padding-right: .75em;
+}
+
+.card-registration .select-arrow {
+top: 13px;
+}
+
+.bg-grey {
+background-color: #eae8e8;
+}
+
+@media (min-width: 992px) {
+.card-registration-2 .bg-grey {
+border-top-right-radius: 16px;
+border-bottom-right-radius: 16px;
+}
+}
+
+@media (max-width: 991px) {
+.card-registration-2 .bg-grey {
+border-bottom-left-radius: 16px;
+border-bottom-right-radius: 16px;
+}
+}
+.purple{
+    border-radius: 20px;
+}
+
+.s_card{
+    width: 80vw;
+    height: 20vw;
+    margin-left: 6vw;
+    margin-top: 8vw;
+    display: flex;
+    justify-content: center;
+    background-color: #ebeef1;
+    border-radius: 20px;
+}
+.s_h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3vw;
+    color: rgb(146, 64, 222);
+    text-align: center;
+    margin-top: 6vw;
+}
+</style>
+
+{% if saved_books %}
+        <section class="h-100 h-custom" >
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-8">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h1 class="fw-bold mb-0 text-black">Your Books</h1>
+                  </div>
+                  <hr class="my-4">
+
+                {% for i in saved_books %}
+                  <div class="row mb-4 d-flex justify-content-between align-items-center">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                      <img
+                        src="{{ i.books_picture.url }}"
+                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-3">
+                      <a href="{% url "detail" i.pk %}"><h6 class="text-muted">{{ i.title }}</h6></a>
+                      <h6 class="text-black mb-0">{{ i.description|truncatewords:5 }}</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                        <h6>{{ i.pages }} pages</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                      <h6 class="mb-0">{{ i.craeted_time|date:"D d M Y"}}</h6>
+                    </div>
+                  </div>
+
+                  <hr class="my-4">
+                {% endfor %}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% else %}
+    <div class="s_card">
+    <h1 class="s_h1">Sorry! But you have not books still.</h1>
+</div>
+
+{% endif %}
+
+{% endblock content %}

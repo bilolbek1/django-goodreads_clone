@@ -53,6 +53,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item " href="{% url 'profile' %}">Yor Profile</a></li>
+            <li><a class="dropdown-item " href="{% url 'saved_books' request.user.id %}">Saved</a></li>
             <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
           {% else %}
               <a style="margin-right: 1vw" class="btn btn-success" href="{% url 'register' %}">SignUp</a>
