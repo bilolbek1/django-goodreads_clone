@@ -61,8 +61,6 @@ class ProfileView(LoginRequiredMixin, View):
         user = request.user
         saved = Save.objects.all()
 
-        
-
         context = {
             'user': user
         }

@@ -116,6 +116,7 @@ class LikeView(LoginRequiredMixin ,View):
         user = request.user
         post_id = request.POST.get('post_id')
         post_obj = Review.objects.get(pk=post_id)
+        print(post_id)
 
         if user in post_obj.liked.all():
             post_obj.liked.remove(user)
