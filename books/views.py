@@ -105,6 +105,7 @@ class LikeView(LoginRequiredMixin ,View):
         user = request.user
         post_id = request.POST.get('post_id')
         post_obj = Review.objects.get(pk=post_id)
+        
 
         context = {
             'user': user,
@@ -161,7 +162,7 @@ class SaveView(LoginRequiredMixin ,View):
 
         save, created = Save.objects.get_or_create(user=user, book_id=book_id)
 
-        if not created:
+        if not created: 
             if save.value == 'Save':
                 save.value = 'Saved'
                 book = save.book
