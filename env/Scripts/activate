@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\DJANGO\goodreads_clone\env"
+VIRTUAL_ENV="D:\Projects\goodreads_clone\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
