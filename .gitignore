@@ -7,7 +7,7 @@ __pycache__/
 *.sqlite3
 *.log
 *.pot
-*.pyc
+#*.pyc
 *.bak
 *.swp
 *.db.sqlite3
